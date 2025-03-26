@@ -5,13 +5,9 @@ installpac(){
         echo "Package {$1} is already installed."
     else
         sudo pacman -S --noconfirm --needed $1
+    fi
 }
 
-installpac reflector
-
-echo "Updating mirrorlist with reflector..."
-sudo reflector -f 30 -l 30 --number 10 --verbose --save /etc/pacman.d/mirrorlist
-sudo pacman -Syy
 # Installation of minimum packages
 list=(
 base-devel
@@ -140,42 +136,3 @@ ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/the
 ##### CHANGING DEFAULTS #####
 echo "Changing default shell to ZSH"
 chsh -s "$(chsh -l | grep "zsh" | awk '{print $1}' | head -n 1)"
-
-#### COPYING DOTFILES #####
-echo "Changing dotfiles"
-git clone --bare https://github.com/fbartelt/dotfiles.git $HOME/.dotfiles
-alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
-
-# Create a timestamped backup folder
-backup_dir="$HOME/.config-backup-$(date +%Y.%m.%d-%H.%M.%S)"
-mkdir -p "$backup_dir"
-
-# Backup .config folder
-if [ -d "$HOME/.config" ]; then
-  echo "Backing up .config folder to $backup_dir..."
-  cp -r "$HOME/.config" "$backup_dir/"
-  rm -rf "$HOME/.config"
-else
-  echo "No .config folder found. Skipping backup."
-fi
-
-# Backup .bashrc
-if [ -f "$HOME/.bashrc" ]; then
-  echo "Backing up .bashrc to $backup_dir..."
-  cp "$HOME/.bashrc" "$backup_dir/"
-  rm "$HOME/.bashrc"
-else
-  echo "No .bashrc found. Skipping backup."
-fi
-
-# Backup .zshrc
-if [ -f "$HOME/.zshrc" ]; then
-  echo "Backing up .zshrc to $backup_dir..."
-  cp "$HOME/.zshrc" "$backup_dir/"
-  rm "$HOME/.zshrc"
-else
-  echo "No .zshrc found. Skipping backup."
-fi
-
-dotfiles checkout
-dotfiles config --local status.showUntrackedFiles no

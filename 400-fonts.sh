@@ -3,6 +3,7 @@ installpac(){
         echo "Package {$1} is already installed."
     else
         sudo pacman -S --noconfirm --needed $1
+    fi
 }
 
 installyay(){
@@ -10,6 +11,7 @@ installyay(){
         echo "Package {$1} is already installed."
     else
         sudo yay -S --noconfirm --needed $1
+    fi
 }
 
 list=(
