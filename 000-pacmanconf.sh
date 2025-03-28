@@ -47,7 +47,7 @@ repo_exists() {
 }
 # Add standard Arch Linux repositories (if not already present)
 echo "Adding standard Arch Linux repositories..."
-for repo in core extra community multilib; do
+for repo in core extra multilib; do
     if ! repo_exists "$repo"; then
         sudo cat <<EOF | sudo tee -a /etc/pacman.conf
 [$repo]
