@@ -140,4 +140,4 @@ ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/the
 
 ##### CHANGING DEFAULTS #####
 echo "Changing default shell to ZSH"
-chsh -s "$(chsh -l | grep "zsh" | awk '{print $1}' | head -n 1)"
+chsh -s "$(which zsh)" $USER

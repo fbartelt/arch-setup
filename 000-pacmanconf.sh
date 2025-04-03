@@ -106,7 +106,7 @@ if ! repo_exists "arch4edu"; then
         fi
      sudo cat <<EOF | sudo tee -a /etc/pacman.conf
 [arch4edu]
-Server = https://mirror.archlinuxcn.org/\$arch
+Server = https://repository.arch4edu.org/\$arch
 EOF
 
 echo "Cleaning up..."

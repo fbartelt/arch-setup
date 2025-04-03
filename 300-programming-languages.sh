@@ -12,7 +12,7 @@ installyay(){
     if pacman -Qi $1 &> /dev/null; then
         echo "Package {$1} is already installed."
     else
-        sudo yay -S --noconfirm --needed $1
+        yay -S --noconfirm --needed $1
     fi
 }
 
