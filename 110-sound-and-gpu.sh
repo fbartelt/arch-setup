@@ -18,7 +18,7 @@ pipewire-x11-bell
 easyeffects
 playerctl
 pavucontrol
-nvidia
+nvidia-open
 nvidia-settings
 nvidia-utils
 nvidia-container-toolkit
