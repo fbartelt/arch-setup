@@ -29,16 +29,15 @@ zip
 unzip
 unrar
 telegram-desktop
-htop
+btop
 ncdu
-spotify
+spotify-launcher
 blender
 vokoscreen
-i3lock-color
 xournalpp
 libreoffice-fresh
 okular
-visual-studio-code-bin
+neovim
 mendeleydesktop-bundled
 arandr
 lxappearance
@@ -53,10 +52,12 @@ speedtest-cli
 task
 xclip
 pass
+lazygit
 )
 
 list_yay=(
 mons
+i3lock-color
 )
 
 for name in "${list[@]}" ; do
