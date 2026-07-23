@@ -15,4 +15,7 @@ sudo systemctl enable --now tailscaled
 
 sudo tailscale up
 
+echo "Installing keychain for ssh key"
+installpac "keychain"
+
 echo "Reboot your system."
