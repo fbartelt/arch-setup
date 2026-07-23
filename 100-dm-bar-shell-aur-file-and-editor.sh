@@ -13,6 +13,7 @@ list=(
 base-devel
 git
 pacman-contrib
+man-db
 lemurs
 lightdm
 lightdm-gtk-greeter
