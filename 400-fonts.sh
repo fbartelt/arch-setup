@@ -19,7 +19,7 @@ list=(
 sdl2_ttf
 ttf-dejavu
 ttf-fira-code
-ttf-font-awesome
+woff2-font-awesome
 ttf-hack
 ttf-liberation
 ttf-nerd-fonts-symbols
@@ -39,15 +39,27 @@ for name in "${list_yay[@]}" ; do
 	installyay $name
 done
 
-echo "Installing MPlus font from github"
+echo "Installing MPlus fonts from github"
 mkdir -p .local/share/fonts/ttf/MPlus
 mkdir -p .local/share/fonts/otf/MPlus
+mkdir -p .local/share/fonts/woff2/MPlus
 
 git clone https://github.com/coz-m/MPLUS_FONTS.git /tmp/MPLUS_FONTS
-cp /tmp/MPLUS_FONTS/fonts/ttf/* .local/share/fonts/ttf/MPlus
-cp /tmp/MPLUS_FONTS/fonts/otf/* .local/share/fonts/otf/MPlus
+
+# Copy all .ttf files from any ttf/ subdirectory
+find /tmp/MPLUS_FONTS/fonts -type f -path '*/ttf/*.ttf' -exec cp {} .local/share/fonts/ttf/MPlus/ \;
+find /tmp/MPLUS_FONTS/fonts -type f -path '*/variable/*.ttf' -exec cp {} .local/share/fonts/ttf/MPlus/ \;
+
+# Copy all .otf files from any otf/ subdirectory
+find /tmp/MPLUS_FONTS/fonts -type f -path '*/otf/*.otf' -exec cp {} .local/share/fonts/otf/MPlus/ \;
+
+# Copy all .woff2 files from any otf/ subdirectory
+find /tmp/MPLUS_FONTS/fonts -type f -path '*/webfonts/*.woff2' -exec cp {} .local/share/fonts/otf/MPlus/ \;
+
 rm -rf /tmp/MPLUS_FONTS
+
 chmod -R a+rX .local/share/fonts/ttf/MPlus
 chmod -R a+rX .local/share/fonts/otf/MPlus
+chmod -R a+rX .local/share/fonts/woff2/MPlus
 
 fc-cache
