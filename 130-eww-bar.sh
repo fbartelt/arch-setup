@@ -16,6 +16,7 @@ libdbusmenu-gtk3
 python3
 python-setuptools
 rustup
+jq
 )
 # gtk3 -> glibc -- eww dependencies
 # python stuff -- zscroll
