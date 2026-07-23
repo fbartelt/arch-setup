@@ -30,11 +30,28 @@ for name in "${list[@]}" ; do
 	installpac $name
 done
 
-if [ "$XDG_SESSION_TYPE" = "x11" ]; then
-  echo "Running nvidia-xconfig"
-  nvidia-xconfig
-fi
 
-echo "Installed pipewire and Nvidia packages. GPU must be configured manually."
+echo "Configuring NVIDIA graphics only"
+# https://wiki.archlinux.org/title/NVIDIA_Optimus#Use_NVIDIA_graphics_only
+sudo cat > /etc/X11/xorg.conf.d/10-nvidia-drm-outputclass.conf << EOF
+Section "OutputClass"
+    Identifier "intel"
+    MatchDriver "i915"
+    Driver "modesetting"
+EndSection
+
+Section "OutputClass"
+    Identifier "nvidia"
+    MatchDriver "nvidia-drm"
+    Driver "nvidia"
+    Option "AllowEmptyInitialConfiguration"
+    Option "PrimaryGPU" "yes"
+    ModulePath "/usr/lib/nvidia/xorg"
+    ModulePath "/usr/lib/xorg/modules"
+EndSection
+EOF
+
+echo "Installed pipewire and Nvidia packages."
+echo "Add these to .xinitrc or i3/config:xrandr --setprovideroutputsource modesetting NVIDIA-0\nxrandr --auto"
 
 
