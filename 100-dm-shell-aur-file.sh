@@ -30,17 +30,13 @@ lsd
 numlockx
 yad
 fastfetch
-gtk3
 gtk-layer-shell
 pango
 gdk-pixbuf2
-libdbusmenu-gtk3
 cairo
 glib2
 gcc-libs
-glibc
 )
-# gtk3 -> glibc -- eww dependencies
 
 for name in "${list[@]}" ; do
 	installpac $name
@@ -98,35 +94,6 @@ echo "Making /etc/lemurs/wms/i3 executable..."
 sudo chmod +x /etc/lemurs/wms/i3
 
 echo "i3 configuration for lemurs created successfully!"
-
-##### EWW #####
-# Install rustup using yay
-echo "Installing rustup..."
-yay -S --noconfirm rustup
-rustup toolchain install stable
-rustup toolchain install nightly
-rustup default stable
-
-# Clone and build eww
-echo "Cloning and building eww..."
-git clone https://github.com/elkowar/eww /tmp/eww
-cd /tmp/eww
-if [ "$XDG_SESSION_TYPE" = "wayland" ]; then
-  echo "Building for Wayland..."
-  cargo build --release --no-default-features --features=wayland
-else
-  echo "Building for X11..."
-  cargo build --release --no-default-features --features x11
-fi
-
-# Install eww globally
-echo "Installing eww globally..."
-sudo cp target/release/eww /usr/local/bin/
-
-# Clean up
-echo "Cleaning up..."
-cd ~
-rm -rf /tmp/eww
 
 ##### OH-MY-ZSH #####
 # Set ZSH_CUSTOM if not already set, using $ZSH if available, else fallback to ~/.oh-my-zsh
