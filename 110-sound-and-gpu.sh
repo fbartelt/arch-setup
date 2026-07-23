@@ -24,6 +24,7 @@ nvidia-utils
 nvidia-container-toolkit
 nvidia-prime
 opencl-nvidia
+pamixer
 )
 
 for name in "${list[@]}" ; do
