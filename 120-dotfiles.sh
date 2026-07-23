@@ -17,3 +17,4 @@ xargs -I{} sh -c '
 
 dotfiles checkout
 dotfiles config --local status.showUntrackedFiles no
+dotfiles remote set-url origin git@github.com:fbartelt/dotfiles.git
