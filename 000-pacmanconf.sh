@@ -45,65 +45,26 @@ fi
 repo_exists() {
     grep -q "^\[$1\]" /etc/pacman.conf
 }
-# Add standard Arch Linux repositories (if not already present)
-echo "Adding standard Arch Linux repositories..."
-for repo in core extra multilib; do
-    if ! repo_exists "$repo"; then
-        sudo cat <<EOF | sudo tee -a /etc/pacman.conf
-[$repo]
-Include = /etc/pacman.d/mirrorlist
-EOF
-    else
-        echo "Repository [$repo] already exists. Skipping..."
-    fi
-done
-
-# Download and save the arcolinux-mirrorlist
-echo "Downloading arcolinux-mirrorlist..."
-sudo curl -o /etc/pacman.d/arcolinux-mirrorlist https://raw.githubusercontent.com/arcolinux/arcolinux-mirrorlist/master/etc/pacman.d/arcolinux-mirrorlist
-
-sudo pacman -S wget --noconfirm --needed
-sudo pacman -S jq --noconfirm --needed
-arco_repo_db=$(wget -qO- https://api.github.com/repos/arcolinux/arcolinux_repo/contents/x86_64)
-echo "Getting the ArcoLinux keys from the ArcoLinux repo"
-
-sudo wget "$(echo "$arco_repo_db" | jq -r '[.[] | select(.name | contains("arcolinux-keyring")) | .name] | .[0] | sub("arcolinux-keyring-"; "https://github.com/arcolinux/arcolinux_repo/raw/main/x86_64/arcolinux-keyring-")')" -O /tmp/arcolinux-keyring-git-any.pkg.tar.zst
-sudo pacman -U --noconfirm --needed /tmp/arcolinux-keyring-git-any.pkg.tar.zst
-
-echo "Getting the latest arcolinux mirrors file"
-
-sudo wget "$(echo "$arco_repo_db" | jq -r '[.[] | select(.name | contains("arcolinux-mirrorlist-git-")) | .name] | .[0] | sub("arcolinux-mirrorlist-git-"; "https://github.com/arcolinux/arcolinux_repo/raw/main/x86_64/arcolinux-mirrorlist-git-")')" -O /tmp/arcolinux-mirrorlist-git-any.pkg.tar.zst
-sudo pacman -U --noconfirm --needed /tmp/arcolinux-mirrorlist-git-any.pkg.tar.zst
-# Add Arcolinux repositories (if not already present)
-echo "Adding Arcolinux repositories..."
-for repo in arcolinux_repo arcolinux_repo_3party arcolinux_repo_xlarge; do
-    if ! repo_exists "$repo"; then
-       sudo cat <<EOF | sudo tee -a /etc/pacman.conf
-[$repo]
-SigLevel = Optional TrustedOnly
-Include = /etc/pacman.d/arcolinux-mirrorlist
-EOF
-    else
-        echo "Repository [$repo] already exists. Skipping..."
-    fi
-done
 
 # Add arch4edu repository (if not already present)
 echo "Adding arch4edu repository..."
 if ! repo_exists "arch4edu"; then
         # Copy keyring
-        curl -O https://mirrors.tuna.tsinghua.edu.cn/arch4edu/any/arch4edu-keyring-20200805-1-any.pkg.tar.zst
+        #curl -O https://mirrors.tuna.tsinghua.edu.cn/arch4edu/any/arch4edu-keyring-20200805-1-any.pkg.tar.zst
         # Verify the SHA256 checksum
         echo "Verifying SHA256 checksum..."
-        expected_checksum="a6abbb16e57bb9065689f5b5391c945e35e256f2e6dbfa11476fdfe880f72775"
-        actual_checksum=$(sha256sum arch4edu-keyring-20200805-1-any.pkg.tar.zst | awk '{print $1}')
+        #expected_checksum="a6abbb16e57bb9065689f5b5391c945e35e256f2e6dbfa11476fdfe880f72775"
+        #actual_checksum=$(sha256sum arch4edu-keyring-20200805-1-any.pkg.tar.zst | awk '{print $1}')
 
-        if [ "$expected_checksum" = "$actual_checksum" ]; then
-            echo "Checksum verified. Installing arch4edu keyring..."
-            sudo pacman -U --noconfirm arch4edu-keyring-20200805-1-any.pkg.tar.zst
-        else
-            echo "Checksum verification failed. Skipping arch4edu installation."
-        fi
+        #if [ "$expected_checksum" = "$actual_checksum" ]; then
+        #    echo "Checksum verified. Installing arch4edu keyring..."
+        #    sudo pacman -U --noconfirm arch4edu-keyring-20200805-1-any.pkg.tar.zst
+        #else
+        #    echo "Checksum verification failed. Skipping arch4edu installation."
+        #fi
+	pacman-key --recv-keys 7931B6D628C8D3BA
+	pacman-key --finger 7931B6D628C8D3BA
+	pacman-key --lsign-key 7931B6D628C8D3BA
      sudo cat <<EOF | sudo tee -a /etc/pacman.conf
 [arch4edu]
 Server = https://repository.arch4edu.org/\$arch

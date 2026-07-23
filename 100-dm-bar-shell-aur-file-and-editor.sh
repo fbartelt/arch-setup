@@ -28,7 +28,7 @@ bat
 lsd
 numlockx
 yad
-neofetch
+fastfetch
 gtk3
 gtk-layer-shell
 pango
