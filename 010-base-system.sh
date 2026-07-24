@@ -8,14 +8,17 @@ installpac(){
     fi
 }
 
-echo "Installing tailscale"
-installpac "tailscale"
+# Installation of minimum packages
+list=(
+    base
+    base-devel
+    git
+    pacman-contrib
+    man-db
+    vim
+    gcc-libs
+)
 
-sudo systemctl enable --now tailscaled
-
-sudo tailscale up
-
-echo "Installing keychain for ssh key"
-installpac "keychain"
-
-echo "Reboot your system."
+for name in "${list[@]}" ; do
+	installpac $name
+done

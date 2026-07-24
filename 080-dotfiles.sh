@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e  # Exit on any error
 #### COPYING DOTFILES #####
 echo "Changing dotfiles"
 git clone --bare https://github.com/fbartelt/dotfiles.git $HOME/.dotfiles

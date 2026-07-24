@@ -1,21 +1,19 @@
 #!/bin/bash
-
+set -e  # Exit on any error
 installpac(){
-    if pacman -Qi $1 &> /dev/null; then
-        echo "Package {$1} is already installed."
+    if pacman -Qi "$1" &> /dev/null; then
+        echo "Package $1 is already installed."
     else
-        sudo pacman -S --noconfirm --needed $1
+        sudo pacman -S --noconfirm --needed "$1"
     fi
 }
-
 installyay(){
-    if pacman -Qi $1 &> /dev/null; then
-        echo "Package {$1} is already installed."
+    if pacman -Qi "$1" &> /dev/null; then
+        echo "Package $1 is already installed."
     else
-        yay -S --noconfirm --needed $1
+        yay -S --noconfirm --needed "$1"
     fi
 }
-
 
 list=(
 python

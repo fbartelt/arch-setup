@@ -1,0 +1,52 @@
+#!/bin/bash
+set -e  # Exit on any error
+installpac(){
+    if pacman -Qi "$1" &> /dev/null; then
+        echo "Package $1 is already installed."
+    else
+        sudo pacman -S --noconfirm --needed "$1"
+    fi
+}
+
+
+list=(
+networkmanager
+network-manager-applet
+vlc
+zip
+unzip
+unrar
+btop
+ncdu
+neovim
+arandr
+lxappearance
+gnome-keyring
+fzf
+fd
+thunar
+thunar-volman
+ranger
+speedtest-cli
+xclip
+pass
+lazygit
+less
+bat
+lsd
+ripgrep
+feh
+rofi
+kitty
+fastfetch
+)
+
+echo "Installing utility softwares"
+
+for name in "${list[@]}" ; do
+	installpac $name
+done
+
+echo "Enabling NetworkManager.service"
+sudo systemctl enable --now NetworkManager.service 
+

@@ -1,6 +1,5 @@
 #!/bin/bash
 set -e  # Exit on any error
-
 installyay(){
     if pacman -Qi "$1" &> /dev/null; then
         echo "Package $1 is already installed."

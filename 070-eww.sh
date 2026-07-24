@@ -1,10 +1,10 @@
 #!/bin/bash
-
+set -e  # Exit on any error
 installpac(){
-    if pacman -Qi $1 &> /dev/null; then
-        echo "Package {$1} is already installed."
+    if pacman -Qi "$1" &> /dev/null; then
+        echo "Package $1 is already installed."
     else
-        sudo pacman -S --noconfirm --needed $1
+        sudo pacman -S --noconfirm --needed "$1"
     fi
 }
 
@@ -17,6 +17,11 @@ python3
 python-setuptools
 rustup
 jq
+gtk-layer-shell
+pango
+gdk-pixbuf2
+cairo
+glib2
 )
 # gtk3 -> glibc -- eww dependencies
 # python stuff -- zscroll
@@ -61,7 +66,5 @@ sudo cp target/release/eww /usr/local/bin/
 
 # Clean up
 echo "Cleaning up..."
-cd ~
+cd -
 rm -rf /tmp/eww
-
-

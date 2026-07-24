@@ -8,14 +8,16 @@ installpac(){
     fi
 }
 
-echo "Installing tailscale"
-installpac "tailscale"
+# Installation of WM and minimum packages
+list=(
+i3-wm
+feh
+rofi
+kitty
+fastfetch
+numlockx
+)
 
-sudo systemctl enable --now tailscaled
-
-sudo tailscale up
-
-echo "Installing keychain for ssh key"
-installpac "keychain"
-
-echo "Reboot your system."
+for name in "${list[@]}" ; do
+	installpac $name
+done
