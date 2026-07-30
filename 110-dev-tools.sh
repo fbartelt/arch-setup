@@ -38,6 +38,7 @@ python-setuptools-git
 python-sphinx_rtd_theme
 python-trimesh
 texlive-latexextra
+tree-sitter-cli
 )
 
 for name in "${list[@]}" ; do
