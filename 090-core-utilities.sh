@@ -26,6 +26,7 @@ fzf
 fd
 thunar
 thunar-volman
+gvfs
 ranger
 speedtest-cli
 xclip
@@ -40,6 +41,7 @@ rofi
 kitty
 fastfetch
 )
+# gvfs for thunar removable media / trash etc.
 
 echo "Installing utility softwares"
 
