@@ -39,6 +39,7 @@ python-sphinx_rtd_theme
 python-trimesh
 texlive-latexextra
 tree-sitter-cli
+eigen
 )
 
 for name in "${list[@]}" ; do
