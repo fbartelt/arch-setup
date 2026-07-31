@@ -13,6 +13,7 @@ list=(
 networkmanager
 network-manager-applet
 vlc
+vlc-plugin-ffmpeg
 zip
 unzip
 unrar
