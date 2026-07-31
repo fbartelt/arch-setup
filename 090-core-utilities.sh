@@ -16,6 +16,7 @@ vlc
 zip
 unzip
 unrar
+7zip
 btop
 ncdu
 neovim
